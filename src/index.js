@@ -5,8 +5,7 @@ const Todo = require('./schema/Todo');
 
 const start = async () => {
   await connectDB();
-  const lastInsertTodo = await Todo.find({}).sort({ createdAt: 1 });
-  console.log('e', lastInsertTodo);
+
   var server = httpShutdown(
     app.listen(3000, () => {
       console.log('listen to port 3000...');

@@ -12,8 +12,7 @@ const { createOrder, findTodo } = require('./helper');
 
 // GET all todos
 router.get('/todos', async (req, res, next) => {
-  const { select, sort, order } = req.query;
-
+  const { select, sort, order, title } = req.query;
   const projection = select ? { [select]: 1 } : {};
   const option = sort ? { sort: { [sort]: 1 } } : {};
 
@@ -26,7 +25,7 @@ router.get('/todos', async (req, res, next) => {
   }
 
   try {
-    const todos = await Todo.find(filter, projection, option);
+    var todos = await Todo.find(filter, projection, option).where({ title: title });
 
     const response = {
       success: true,
