@@ -21,9 +21,10 @@
     "mongoose": "^5.12.12"
   },
   "devDependencies": {
-    "lint-staged": "^11.0.0",
     "eslint": "^7.28.0",
+    "husky": "^6.0.0",
     "jest": "^27.0.4",
+    "lint-staged": "^11.0.0",
     "mongodb-memory-server": "^6.9.6",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
