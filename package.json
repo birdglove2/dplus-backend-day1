@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "jest --verbose --watchAll --no-cache "
+    "test": "jest --verbose --watchAll --no-cache ",
+    "lint": "eslint '**/*.js'",
+    "lint:fix": "prettier-eslint '**/*.js' --write"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
