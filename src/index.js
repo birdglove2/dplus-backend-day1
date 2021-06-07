@@ -1,7 +1,6 @@
 const app = require('./app');
 const httpShutdown = require('http-shutdown');
 const { connectDB, disconnectDB } = require('./utils/db');
-const Todo = require('./schema/Todo');
 
 const start = async () => {
   await connectDB();

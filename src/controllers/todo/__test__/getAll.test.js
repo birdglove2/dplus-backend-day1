@@ -1,6 +1,6 @@
 const request = require('supertest');
-const app = require('../../app');
-const Todo = require('../../schema/Todo');
+const app = require('../../../app');
+const Todo = require('../../../schema/Todo');
 
 it('should return 200 if get all todos successfully ', async () => {
   // if no todo return []

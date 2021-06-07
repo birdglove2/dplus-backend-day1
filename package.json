@@ -6,23 +6,31 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "test": "jest --verbose --watchAll --no-cache ",
+    "test:ci": "jest",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-validator": "^6.11.1",
     "http-shutdown": "^1.2.2",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mongoose": "^5.12.12"
   },
   "devDependencies": {
     "eslint": "^7.28.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
     "husky": "^6.0.0",
     "jest": "^27.0.4",
     "lint-staged": "^11.0.0",
@@ -40,8 +48,6 @@
     ]
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "prettier --write ."
-    }
+    "hooks": {}
   }
 }

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const request = require('supertest');
-const app = require('../../app');
-const Todo = require('../../schema/Todo');
+const app = require('../../../app');
+const Todo = require('../../../schema/Todo');
 
 it('should return 400 if the ObjectID provided is not valid', async () => {
   await request(app).get('/app/no_auth/todos/adad').send().expect(400);

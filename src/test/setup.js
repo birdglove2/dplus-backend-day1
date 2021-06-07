@@ -1,5 +1,7 @@
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
+const request = require('supertest');
+const app = require('../app');
 
 let mongo;
 beforeAll(async () => {
@@ -28,3 +30,11 @@ afterAll(async () => {
   await mongo.stop();
   await mongoose.connection.close();
 });
+
+global.signin = async () => {
+  const name = 'test-user';
+  const email = 'test@test.com';
+  const password = 'password';
+
+  await request(app).post('/app/auth/register').send({ name, email, password }).expect(201);
+};

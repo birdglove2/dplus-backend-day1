@@ -1,5 +1,4 @@
 const express = require('express');
-const Todo = require('../schema/Todo');
 
 const router = express.Router();
 
