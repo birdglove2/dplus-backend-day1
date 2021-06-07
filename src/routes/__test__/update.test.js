@@ -33,6 +33,5 @@ it('should return 200 if update the todo successfully ', async () => {
     .send({ title: 'Update Hello' })
     .expect(201);
 
-  expect(res.body.success).toEqual(true);
   expect(res.body.data.title).toEqual('Update Hello');
 });

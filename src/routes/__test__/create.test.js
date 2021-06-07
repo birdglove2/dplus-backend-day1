@@ -19,5 +19,4 @@ it('should return 200 if create the todo successfully ', async () => {
 
   todo = await Todo.find({});
   expect(todo.length).toBe(1);
-  expect(true).toEqual(false);
 });

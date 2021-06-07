@@ -6,8 +6,7 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "test": "jest --verbose --watchAll --no-cache ",
-    "lint": "eslint '**/*.js'",
-    "lint:fix": "eslint '**/*.js' --write"
+    "prepare": "husky install"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -22,7 +21,6 @@
   },
   "devDependencies": {
     "eslint": "^7.28.0",
-    "husky": "^6.0.0",
     "jest": "^27.0.4",
     "lint-staged": "^11.0.0",
     "mongodb-memory-server": "^6.9.6",
@@ -35,17 +33,6 @@
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
       "./src/test/setup.js"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn test"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "yarn run lint",
-      "git add"
     ]
   }
 }
