@@ -1,4 +1,5 @@
 const express = require('express');
+require('express-async-errors');
 const { json } = require('body-parser');
 const cors = require('cors');
 
