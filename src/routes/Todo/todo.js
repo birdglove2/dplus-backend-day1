@@ -11,7 +11,7 @@ const router = express.Router();
 const { createOrder, findTodo } = require('./helper');
 
 // GET all todos
-router.get('/todos', async (req, res, next) => {
+router.get('/todos', async (req, res) => {
   const { select, sort, order, title } = req.query;
   const projection = select ? { [select]: 1 } : {};
   const option = sort ? { sort: { [sort]: 1 } } : {};
@@ -24,104 +24,92 @@ router.get('/todos', async (req, res, next) => {
     filter = { order: { [ascOrDes]: value } };
   }
 
-  try {
-    var todos = await Todo.find(filter, projection, option).where({ title: title });
-
-    const response = {
-      success: true,
-      count: todos.length,
-      data: todos,
-    };
-    res.status(200).json(response);
-  } catch (err) {
-    next(err);
+  let todos;
+  if (title) {
+    todos = await Todo.find(filter, projection, option).where({ title });
+  } else {
+    todos = await Todo.find(filter, projection, option);
   }
+
+  const response = {
+    success: true,
+    count: todos.length,
+    data: todos,
+  };
+  res.status(200).json(response);
 });
 
 // POST todo data
-router.post('/todos', bodyChecker, validateRequest, async (req, res, next) => {
+router.post('/todos', bodyChecker, validateRequest, async (req, res) => {
   const { title } = req.body;
-  try {
-    const order = await createOrder();
-    const todo = await Todo.create({ title, order });
-    const response = {
-      success: true,
-      data: {
-        order: todo.order,
-        title: todo.title,
-        createdAt: todo.createdAt,
-        _id: todo._id,
-      },
-    };
-    res.status(201).json(response);
-  } catch (err) {
-    next(err);
-  }
+
+  const order = await createOrder();
+  const todo = await Todo.create({ title, order });
+  const response = {
+    success: true,
+    data: {
+      order: todo.order,
+      title: todo.title,
+      createdAt: todo.createdAt,
+      _id: todo._id,
+    },
+  };
+  res.status(201).json(response);
 });
 
 // GET a todo
-router.get('/todos/:_id', async (req, res, next) => {
+router.get('/todos/:_id', async (req, res) => {
   const { _id } = req.params;
 
-  try {
-    const todo = await findTodo(_id);
+  const todo = await findTodo(_id);
 
-    const response = {
-      success: true,
-      data: {
-        order: todo.order,
-        title: todo.title,
-        createdAt: todo.createdAt,
-        _id: todo._id,
-      },
-    };
-    res.status(200).json(response);
-  } catch (err) {
-    next(err);
-  }
+  const response = {
+    success: true,
+    data: {
+      order: todo.order,
+      title: todo.title,
+      createdAt: todo.createdAt,
+      _id: todo._id,
+    },
+  };
+  res.status(200).json(response);
 });
 
 // Update a todo
-router.put('/todos/:_id', bodyChecker, validateRequest, async (req, res, next) => {
+router.put('/todos/:_id', bodyChecker, validateRequest, async (req, res) => {
   const { _id } = req.params;
-  try {
-    const todo = await findTodo(_id);
 
-    const { title } = req.body;
-    todo.title = title;
-    await todo.save();
+  const todo = await findTodo(_id);
 
-    const response = {
-      success: true,
-      data: {
-        order: todo.order,
-        title: todo.title,
-        createdAt: todo.createdAt,
-        _id: todo._id,
-      },
-    };
+  const { title } = req.body;
+  todo.title = title;
+  await todo.save();
 
-    res.status(201).json(response);
-  } catch (err) {
-    next(err);
-  }
+  const response = {
+    success: true,
+    data: {
+      order: todo.order,
+      title: todo.title,
+      createdAt: todo.createdAt,
+      _id: todo._id,
+    },
+  };
+
+  res.status(201).json(response);
 });
 
 // Delete a todo
-router.delete('/todos/:_id', async (req, res, next) => {
+router.delete('/todos/:_id', async (req, res) => {
   const { _id } = req.params;
-  try {
-    const todo = await findTodo(_id);
-    await todo.delete();
 
-    const response = {
-      success: true,
-      data: {},
-    };
-    res.status(202).json(response);
-  } catch (err) {
-    next(err);
-  }
+  const todo = await findTodo(_id);
+  await todo.delete();
+
+  const response = {
+    success: true,
+    data: {},
+  };
+  res.status(202).json(response);
 });
 
 module.exports = router;
