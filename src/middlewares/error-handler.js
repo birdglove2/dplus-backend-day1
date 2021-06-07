@@ -5,7 +5,7 @@ const errorHandler = (err, req, res, next) => {
     return res.status(err.statusCode).json(err.serializeErrors());
   }
 
-  res.status(400).send([
+  res.status(500).send([
     {
       error: `Something went wrong: ${err.message}`,
       data: {},
