@@ -1,18 +1,23 @@
-const app = require('./app');
 const httpShutdown = require('http-shutdown');
 const { connectDB, disconnectDB } = require('./utils/db');
+const app = require('./app');
+
+app.get('/', function (req, res) {
+  res.send('hello');
+  process.exit(1);
+});
 
 const start = async () => {
   await connectDB();
 
-  var server = httpShutdown(
+  const server = httpShutdown(
     app.listen(3000, () => {
       console.log('listen to port 3000...');
     })
   );
 
   // graceful shutdown
-  var called = false;
+  let called = false;
   const shutdown = () => {
     if (called) return;
     called = true;
